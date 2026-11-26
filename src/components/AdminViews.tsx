@@ -2179,6 +2179,72 @@ export function AdminPanelView({
                               : '⚠️ Docs no legibles / erróneos · Volver a enviar'}
                           </button>
                         </div>
+
+                        <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-teal-200/80">
+                          {(c.estadoCita === 'Pre-admitida' ||
+                            c.estadoCita === 'Reprogramada') && (
+                            <button
+                              type="button"
+                              onClick={() => handleEnviarRecordatorioCorreo(c)}
+                              disabled={
+                                enviandoCorreoId === c.id || enCooldownCorreo
+                              }
+                              className="px-2.5 py-1.5 rounded-lg bg-teal-700 text-white font-bold flex items-center gap-1 disabled:opacity-50"
+                            >
+                              <Ic n="mail" c="w-3.5 h-3.5" />
+                              <span>
+                                {enviandoCorreoId === c.id
+                                  ? 'Enviando...'
+                                  : enCooldownCorreo
+                                  ? `Espera ${infoMail.segsRestantes}s`
+                                  : `Recordar Correo (${infoMail.count})`}
+                              </span>
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => abrirModalReprogramacion(c)}
+                            className="px-2.5 py-1.5 rounded-lg bg-sky-50 text-sky-900 border border-sky-200 font-bold flex items-center gap-1"
+                          >
+                            <Ic n="calendar" c="w-3.5 h-3.5" />
+                            <span>Reprogramar / Área</span>
+                          </button>
+                          {c.estadoCita !== 'No asistió' &&
+                            c.estadoCita !== 'Admitida en Sala' && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  ejecutarActualizacionEstadoCitaAdmin(
+                                    c.id,
+                                    'No asistió'
+                                  )
+                                }
+                                className="px-2.5 py-1.5 rounded-lg bg-rose-50 text-rose-800 border border-rose-200 font-bold"
+                              >
+                                No Asistió
+                              </button>
+                            )}
+                          <button
+                            type="button"
+                            onClick={() =>
+                              solicitarCancelarCitaAdmin(
+                                c,
+                                observacionTemp[c.id]
+                              )
+                            }
+                            className="px-2.5 py-1.5 rounded-lg bg-slate-100 font-bold"
+                          >
+                            Cancelar
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => eliminarCitaDeNube(c)}
+                            className="px-2.5 py-1.5 rounded-lg bg-rose-600 text-white font-bold flex items-center gap-1 ml-auto"
+                          >
+                            <Ic n="trash" c="w-3.5 h-3.5" />
+                            <span>Eliminar</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   );
