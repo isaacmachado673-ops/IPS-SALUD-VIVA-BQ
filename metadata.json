@@ -1,0 +1,6 @@
+{
+  "name": "IPS Salud Viva - Portal SGSSS",
+  "description": "Sistema de agendamiento médico ambulatorio, pre-admisión QR, facturación SGSSS y panel administrativo por niveles para IPS Salud Viva Barranquilla.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
